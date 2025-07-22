@@ -3,7 +3,7 @@ dependencies: []
 
 galaxy_info:
   author: mpetr
-  namespace: super_mpetr
+  namespace: super-mpetr
   role_name: custom_motd
   description: Custom MOTD Role
   license: MIT
