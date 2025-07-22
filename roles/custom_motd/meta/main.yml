@@ -1,0 +1,19 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: mpetr
+  description: Custom MOTD Role
+  license: MIT
+  min_ansible_version: "2.12"
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+  galaxy_tags:
+    - motd
+    - message
+    - custom
