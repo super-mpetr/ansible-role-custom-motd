@@ -7,12 +7,9 @@
       private: false
 
   pre_tasks:
-    - name: Set default motd_message if empty
+    - name: Set and apply default welcome message if input is empty or undefined
       ansible.builtin.set_fact:
-        custom_motd_message: "{{ custom_motd_message | default('') | trim }}"
-    - name: Apply default welcome message if input empty
-      ansible.builtin.set_fact:
-        custom_motd_message: "{{ custom_motd_message if custom_motd_message != '' else 'Welcome to the server!' }}"
+        custom_motd_message: "{{ custom_motd_message | default('') | trim | default('Welcome to the server!') }}"
 
   roles:
     - custom_motd
