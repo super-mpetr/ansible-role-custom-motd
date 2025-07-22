@@ -6,8 +6,7 @@ This Ansible role configures a **custom Message of the Day (MOTD)** on Linux ser
 
 ## Features
 
-- Prompts user for a custom welcome message at runtime
-- Displays the message using ASCII art via `figlet`
+- Displays a custom welcome message on SSH login using ASCII art (`figlet`)
 - Fully idempotent and lint-checked
 - Supports Debian and Ubuntu platforms
 
@@ -22,36 +21,54 @@ This Ansible role configures a **custom Message of the Day (MOTD)** on Linux ser
 
 ## Role Variables
 
-No variables need to be defined in advance. You will be prompted when running the playbook.
-
 | Variable              | Description                               | Default                   |
 |-----------------------|-------------------------------------------|---------------------------|
-| `custom_motd_message` | The welcome message to display on login   | `Welcome to the server!`  |
+| `custom_motd_message` | The welcome message to display on login   | `"Welcome to the server!"`|
+
+Default value can be overridden in your playbook or inventory.
 
 ---
 
-## Example Playbook
+## Installation
 
+You can install the role from Ansible Galaxy:
+
+```bash
+ansible-galaxy role install super-mpetr.custom_motd
+```
+
+## Usage
 ```yaml
-- name: Run custom MOTD role
+- name: Configure custom MOTD
   hosts: all
   become: true
 
-  vars_prompt:
-    - name: custom_motd_message
-      prompt: "Enter your custom SSH welcome message"
-      private: false
-
-  pre_tasks:
-    - name: Set default motd_message if empty
-      ansible.builtin.set_fact:
-        custom_motd_message: "{{ custom_motd_message | default('') | trim }}"
-    - name: Apply default welcome message if input empty
-      ansible.builtin.set_fact:
-        custom_motd_message: "{{ custom_motd_message | default('Welcome to the server!') }}"
+  vars:
+    custom_motd_message: "Hello from Ansible!"
 
   roles:
-    - custom_motd
+    - super-mpetr.custom-motd
+```
+
+### **Optional:** Prompt for message during playbook run
+
+If you want to prompt the user to enter the message interactively, you can add:
+
+```yaml
+vars_prompt:
+  - name: custom_motd_message
+    prompt: "Enter your custom SSH welcome message"
+    private: false
+```
+
+to your playbook before including the role.
+
+## Testing
+
+This role includes Molecule tests for validation. Run tests locally with:
+
+```bash
+molecule test
 ```
 
 ## License
