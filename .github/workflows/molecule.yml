@@ -13,7 +13,6 @@ jobs:
         image: docker:20.10.16-dind
         options: >-
           --privileged
-          --network host
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
