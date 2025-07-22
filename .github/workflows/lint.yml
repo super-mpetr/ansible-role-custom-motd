@@ -6,10 +6,12 @@ on:
       - 'roles/**'
       - '.github/workflows/lint.yml'
   pull_request:
+    branches:
+      - main
 
 jobs:
   ansible-lint:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -20,10 +22,11 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Setup venv and run ansible-lint
+      - name: Install ansible-lint
         run: |
-          python3 -m venv ~/.venv
-          source ~/.venv/bin/activate
-          pip install --upgrade pip
-          pip install ansible-lint
+          python3 -m pip install --upgrade pip
+          pip install ansible ansible-lint
+
+      - name: Run ansible-lint
+        run: |
           ansible-lint roles/
