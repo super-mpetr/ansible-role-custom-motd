@@ -1,0 +1,20 @@
+---
+- name: Verify dynamic MOTD content
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Run dynamic MOTD scripts
+      ansible.builtin.command: run-parts /etc/update-motd.d/
+      register: motd_output
+      changed_when: false
+      failed_when: motd_output.rc != 0
+
+    - name: Show dynamic MOTD content
+      ansible.builtin.debug:
+        var: motd_output.stdout
+
+    - name: Assert MOTD contains expected content
+      ansible.builtin.assert:
+        that:
+          - "'Welcome' in motd_output.stdout"
+        fail_msg: "MOTD scripts did not generate expected output."

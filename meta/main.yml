@@ -3,6 +3,9 @@ dependencies: []
 
 galaxy_info:
   author: mpetr
+  namespace: super_mpetr
+  role_name: custom_motd
+  standalone: true
   description: Custom MOTD Role
   license: MIT
   min_ansible_version: "2.12"
