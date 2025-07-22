@@ -26,4 +26,4 @@ jobs:
           source ~/.venv/bin/activate
           pip install --upgrade pip
           pip install ansible-lint
-          ANSIBLE_DEBUG=5 ansible-lint roles/
+          ansible-lint roles/
