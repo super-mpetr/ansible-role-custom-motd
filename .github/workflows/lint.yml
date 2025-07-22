@@ -1,0 +1,33 @@
+name: Lint Ansible Role
+
+on:
+  push:
+    paths:
+      - 'roles/**'
+      - '.github/workflows/lint.yml'
+  pull_request:
+
+jobs:
+  ansible-lint:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Create virtual environment
+        run: |
+          python3 -m venv ~/.venv
+          source ~/.venv/bin/activate
+          pip install --upgrade pip
+          pip install ansible-lint
+
+      - name: Run ansible-lint
+        run: |
+          source ~/.venv/bin/activate
+          ansible-lint roles/

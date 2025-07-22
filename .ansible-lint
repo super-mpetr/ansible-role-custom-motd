@@ -1,0 +1,7 @@
+exclude_paths:
+  - .github/
+warn_list:
+  - name[missing]           # Warn if task name is missing
+  - fqcn[action-core]       # Recommend using FQCN for modules
+parseable: true
+verbosity: 1
