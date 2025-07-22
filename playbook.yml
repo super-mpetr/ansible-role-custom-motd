@@ -2,17 +2,17 @@
   hosts: all
   become: true
   vars_prompt:
-    - name: motd_message
+    - name: custom_motd_message
       prompt: "Enter your custom SSH welcome message"
       private: false
 
   pre_tasks:
     - name: Set default motd_message if empty
       ansible.builtin.set_fact:
-        motd_message: "{{ motd_message | default('') | trim }}"
+        custom_motd_message: "{{ custom_motd_message | default('') | trim }}"
     - name: Apply default welcome message if input empty
       ansible.builtin.set_fact:
-        motd_message: "{{ motd_message if motd_message != '' else 'Welcome to the server!' }}"
+        custom_motd_message: "{{ custom_motd_message if custom_motd_message != '' else 'Welcome to the server!' }}"
 
   roles:
     - custom_motd
