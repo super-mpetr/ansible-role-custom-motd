@@ -1,6 +1,6 @@
 # Ansible Role: Custom MOTD
 
-[![Lint Ansible Role](https://github.com/super-mpetr/ansible-role-custom-motd/actions/workflows/lint.yml/badge.svg)](https://github.com/super-mpetr/ansible-role-custom-motd/actions/workflows/lint.yml)
+[![Lint Ansible Role](https://github.com/super-mpetr/ansible-role-custom-motd/actions/workflows/lint.yml/badge.svg)](https://github.com/super-mpetr/ansible-role-custom-motd/actions/workflows/lint.yml)[![Molecule Test](https://github.com/super-mpetr/ansible-role-custom-motd/actions/workflows/molecule.yml/badge.svg)](https://github.com/super-mpetr/ansible-role-custom-motd/actions/workflows/molecule.yml)
 
 This Ansible role configures a **custom Message of the Day (MOTD)** on Linux servers, displayed upon SSH login.
 
