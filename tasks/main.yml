@@ -1,0 +1,28 @@
+---
+- name: Ensure figlet is installed
+  ansible.builtin.package:
+    name: figlet
+    state: present
+
+- name: Ensure update-motd.d directory exists
+  ansible.builtin.file:
+    path: /etc/update-motd.d
+    state: directory
+    mode: '0755'
+
+- name: Deploy custom MOTD script
+  ansible.builtin.template:
+    src: 99-custom-motd.j2
+    dest: /etc/update-motd.d/99-custom-motd
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Ensure PAM runs dynamic MOTD
+  ansible.builtin.lineinfile:
+    path: /etc/pam.d/sshd
+    regexp: '^session\s+optional\s+pam_motd\.so'
+    line: 'session optional pam_motd.so motd=/run/motd.dynamic'
+    state: present
+    insertbefore: BOF
+  when: ansible_distribution in ['Ubuntu', 'Debian']
